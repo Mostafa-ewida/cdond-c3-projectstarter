@@ -163,7 +163,7 @@ jobs:
       - checkout # Checkout code from git
       - run: 
           name: install dependencies
-          command: apt install tar
+          command: sudo apt install tar
       - run:
           name: Ensure back-end infrastructure exists
           command: |
