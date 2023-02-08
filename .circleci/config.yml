@@ -161,8 +161,6 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout # Checkout code from git
-      - run: cat /etc/os-release
-      - run: sudo apt install tar
       - run:
           name: Ensure back-end infrastructure exists
           command: |
