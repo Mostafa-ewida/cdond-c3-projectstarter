@@ -346,8 +346,6 @@ workflows:
           requires: [build-frontend]
       - deploy-infrastructure:
           requires:
-            - build-frontend
-            - build-backend
             - test-frontend
             - test-backend
             - scan-frontend
