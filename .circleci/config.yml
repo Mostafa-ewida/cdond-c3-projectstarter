@@ -1,6 +1,16 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@4.12.1
+
 commands:
+
+  notify_on_failure:
+    steps:
+      - slack-notify:
+          event: fail
+          channel: circleci-integration
+          template: basic_fail_1
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     # parameters:
@@ -32,9 +42,7 @@ commands:
               exit 1
             fi
 
-orbs:
-  slack: circleci/slack@4.12.1
-          
+
 jobs:
   build-frontend:
     docker:
@@ -52,6 +60,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+      - notify_on_failure
 
   build-backend:
     docker:
@@ -70,6 +79,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
+      - notify_on_failure
     
 
 
@@ -86,6 +96,7 @@ jobs:
             cd frontend
             npm install
             npm run test
+      - notify_on_failure
                 
   test-backend:
     docker:
@@ -100,6 +111,7 @@ jobs:
             cd backend
             npm install
             npm run test
+      - notify_on_failure
             
   scan-frontend:
     docker:
@@ -118,6 +130,7 @@ jobs:
             npm audit --audit-level=critical
 
            # Your job code here
+      - notify_on_failure
 
   scan-backend:
     docker:
@@ -135,6 +148,7 @@ jobs:
             npm audit fix --force
             npm audit --audit-level=critical
            # Your job code here
+      - notify_on_failure
 
 #   deploy-infrastructure:
 #     docker:
@@ -302,6 +316,16 @@ jobs:
 #             fi
             
 
+  notify_on_success:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack-notify:
+          event: pass
+          channel: circleci-integration
+          template: success_tagged_deployment_1
+
+
 workflows:
   default:
     jobs:
@@ -315,6 +339,15 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
+      - notify_on_success:
+          requires:
+            - build-frontend
+            - build-backend
+            - test-frontend
+            - test-backend
+            - scan-frontend
+            - scan-backend
+            
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
