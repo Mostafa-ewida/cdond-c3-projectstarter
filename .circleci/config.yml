@@ -157,13 +157,11 @@ jobs:
 
   deploy-infrastructure:
     docker: 
-      - image: amazon/aws-cli
+      - image: cimg/base:stable
       # Docker image here that supports AWS CLI
     steps:
       - checkout # Checkout code from git
-      - run: 
-          name: install dependencies
-          command: sudo apt install tar
+      - install_awscli
       - run:
           name: Ensure back-end infrastructure exists
           command: |
