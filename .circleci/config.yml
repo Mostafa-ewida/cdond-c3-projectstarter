@@ -161,7 +161,7 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout # Checkout code from git
-      - run: hostnamctl
+      - run: cat /etc/os-release
       - run:
           name: Ensure back-end infrastructure exists
           command: |
