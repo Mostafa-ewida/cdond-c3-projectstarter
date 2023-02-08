@@ -7,7 +7,7 @@ commands:
 
   notify_on_failure:
     steps:
-      - slack-notify:
+      - slack/notify:
           event: fail
           channel: circleci-integration
           template: basic_fail_1
@@ -347,7 +347,7 @@ workflows:
             - test-backend
             - scan-frontend
             - scan-backend
-            
+
       # - deploy-infrastructure:
       #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
       #     filters:
