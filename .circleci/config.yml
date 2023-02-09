@@ -161,7 +161,7 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout # Checkout code from git
-      - run: apk add tar gzip
+      - run: yum install -y tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |
