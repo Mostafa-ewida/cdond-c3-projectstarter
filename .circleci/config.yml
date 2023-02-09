@@ -206,10 +206,6 @@ jobs:
       - attach_workspace:
           at: ~/
       # attach workspace
-      - run:
-          name: Install dependencies
-          command: |
-              sudo apt install ansible gzip tar 
          
       - run:
           name: Configure server
