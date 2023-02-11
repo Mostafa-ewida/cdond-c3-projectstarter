@@ -206,7 +206,7 @@ jobs:
       - attach_workspace:
           at: ~/
       # attach workspace
-      
+
       - run: 
           name: install aws-cli tar and gzip
           command: yum install tar gzip awscli -y

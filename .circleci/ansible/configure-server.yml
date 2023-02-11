@@ -27,11 +27,11 @@
         state: latest
         update_cache: yes
 
-    - name: "Install Node.js, PM2, and NPM for Ansible."
-      package:
-        name: "{{ item.name }}"
+    - name: "Install node pm2 and npm for Ansible."
+      yum:
+        name: "{{ item }}"
         state: latest
-      loop:
+      with_items:
         - pm2
         - npm
         - node
