@@ -29,7 +29,7 @@
 
     - name: "Install Node.js, PM2, and NPM for Ansible."
       package:
-        name: "{{ item }}"
+        name: "{{ item.name }}"
         state: latest
       loop:
         - pm2
