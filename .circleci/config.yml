@@ -16,7 +16,7 @@ commands:
     parameters:
       Workflow_ID:
         type: string
-        default: Meewida1234
+        default: meewida1234
     #   # Add parameter here   
     steps:
       - run:
@@ -24,28 +24,28 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack \
-            --stack-name udapeople-<<parameters.Workflow_ID>>
-            aws s3 rm s3://udapeople-ewida --recursive
+            --stack-name udapeople-backend-<<parameters.Workflow_ID>>
+            aws s3 rm s3://udapeople-meewida1234 --recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
 
-  revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.
-    # parameters:
-    #   # Add parameter here     
-    steps:
-      - run:
-          name: Revert migrations
-          # Add when this will run
-          command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
-            if(( $SUCCESS==1 )); 
-            then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
-            fi
+  # revert-migrations:
+  #   description: Revert the last migration if successfully run in the current workflow.
+  #   # parameters:
+  #   #   # Add parameter here     
+  #   steps:
+  #     - run:
+  #         name: Revert migrations
+  #         # Add when this will run
+  #         command: |
+  #           # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+  #           SUCCESS = 1
+  #           if(( $SUCCESS==1 )); 
+  #           then
+  #           #  cd ~/project/backend
+  #           #  npm install
+  #           #  Add revert code here. You can find this in the Getting Started section.
+  #             exit 1
+  #           fi
 
 
 jobs:
@@ -167,8 +167,8 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file .circleci/files/backend.yml \
-            --stack-name "udapeople-backend-Meewida1234" \
-            --parameter-overrides ID="udapeople-backend-Meewida1234"  \
+            --stack-name "udapeople-backend-meewida1234" \
+            --parameter-overrides ID="udapeople-backend-meewida1234"  \
             --tags project=udapeople
       - run:
           name: Ensure front-end infrastructure exist
@@ -176,13 +176,13 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
-              --stack-name "udapeople-frontend-Meewida1234" \
-              --parameter-overrides ID="udapeople-frontend-Meewida1234"
+              --stack-name "udapeople-frontend-meewida1234" \
+              --parameter-overrides ID="udapeople-frontend-meewida1234"
               
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-Meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
             echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
