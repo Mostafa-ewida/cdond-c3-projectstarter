@@ -12,7 +12,7 @@ commands:
           channel: circleci-integration
           template: basic_fail_1
   destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    description: Destroy back-end and front-end cloudformation stacks given a workflow ID 1.
     parameters:
       Workflow_ID:
         type: string
