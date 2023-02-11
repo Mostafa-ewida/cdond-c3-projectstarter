@@ -196,7 +196,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: ansible/centos7-ansible
       # Docker image here that supports Ansible
     steps:
       - checkout # Checkout code from git
@@ -206,7 +206,7 @@ jobs:
       - attach_workspace:
           at: ~/
       # attach workspace
-         
+
       - run:
           name: Configure server
           command: |
