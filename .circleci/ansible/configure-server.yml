@@ -13,28 +13,31 @@
 
   pre_tasks:
     - name: "Wait 600 seconds for target connection to become reachable/usable."
-      pause:
-        seconds: 20
+      ansible.builtin.wait_for_connection:
+        timeout: 2
 
     - name: "Install Python for Ansible."
-      package:
-        name: python
+      become: true
+      apt:
+        name: python3
         state: latest
 
     - name: "Updating packages for Ansible."
-      package:
+      apt:
         name: "*"
         state: latest
         update_cache: yes
 
-    - name: "Install node pm2 and npm for Ansible."
+    - name: "Install node pm2 and npm for Ansible"
       apt:
-        name: "{{ item }}"
+        name: ['nodejs', 'npm']
         state: latest
-      with_items:
-        - pm2
-        - npm
-        - node
+
+      
+    - name: "install pm2 using npm"
+      npm:
+        name: pm2
+        global: yes
 
   environment:
     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
