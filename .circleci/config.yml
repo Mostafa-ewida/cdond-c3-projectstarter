@@ -200,7 +200,7 @@ jobs:
       - checkout # Checkout code from git
       - add_ssh_keys:
           fingerprints:
-            - 1b:40:2f:71:d3:30:f4:37:43:be:75:d7:55:a6:b3:17
+            - "1b:40:2f:71:d3:30:f4:37:43:be:75:d7:55:a6:b3:17"
       - attach_workspace:
           at: ~/
       # attach workspace
@@ -386,5 +386,5 @@ workflows:
       #     requires: [cloudfront-update]
       - notify_on_success:
           requires:
-            - configure-infrastructure
+            - deploy-frontend
 
