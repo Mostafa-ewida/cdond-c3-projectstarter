@@ -218,13 +218,14 @@ jobs:
           name: configuring ~/ansible.cfg
           command: |
             mkdir -p ~/ansible
+            export ANSIBLE_HOST_KEY_CHECKING=False
             touch ~/ansible/ansible.cfg
             echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
       - run:
           name: Configure server
           command: |
             cd  .circleci/ansible/
-            ansible-playbook configure-server.yml -i inventory.txt  -e ANSIBLE_HOST_KEY_CHECKING=False
+            ansible-playbook configure-server.yml -i inventory.txt
 
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
