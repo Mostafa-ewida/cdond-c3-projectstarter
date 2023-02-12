@@ -217,11 +217,6 @@ jobs:
       - run: 
           name: install aws-cli tar and gzip sed
           command: sudo apt install tar sed gzip awscli -y
-      - run:
-          name: configuring ~/ansible.cfg
-          command: |
-            sudo sed -i "s/#   StrictHostKeyChecking ask/   StrictHostKeyChecking no/g" /etc/ssh/ssh_config
-      
 
       - run:
           name: Configure server
