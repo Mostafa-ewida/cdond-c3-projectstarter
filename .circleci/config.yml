@@ -196,7 +196,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: ansible/centos7-ansible
+      - image: cimg/base:stable
       # Docker image here that supports Ansible
     steps:
       - checkout # Checkout code from git
@@ -208,12 +208,15 @@ jobs:
       # attach workspace
 
       - run:
-          name: make cache fast
-          command: yum makecache fast
+          name: install ansible
+          command: |
+            apt update
+            add-apt-repository --yes --update ppa:ansible/ansible
+            apt install ansible -y
 
       - run: 
           name: install aws-cli tar and gzip sed
-          command: yum install tar sed gzip awscli -y
+          command: apt install tar sed gzip awscli -y
       - run:
           name: configuring ~/ansible.cfg
           command: |
