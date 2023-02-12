@@ -86,8 +86,6 @@ jobs:
           key: backend-build
       - notify_on_failure
     
-
-
   test-frontend:
     docker:
       - image: circleci/node:13.8.0
@@ -182,7 +180,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=UdaPeople-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
             echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
@@ -216,8 +214,6 @@ jobs:
           command: |
             cd  .circleci/ansible/
             ansible-playbook configure-server.yml -i inventory.txt  
-      
-
 
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
@@ -257,7 +253,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances  --filters "Name=tag:Name,Values=UdaPeople-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances  --filters "Name=tag:Name,Values=backend-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
