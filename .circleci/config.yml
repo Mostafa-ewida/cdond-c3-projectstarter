@@ -220,7 +220,7 @@ jobs:
       - run:
           name: configuring ~/ansible.cfg
           command: |
-            sed -i "s/#   StrictHostKeyChecking ask/   StrictHostKeyChecking no/g" /etc/ssh/ssh_config
+            sudo sed -i "s/#   StrictHostKeyChecking ask/   StrictHostKeyChecking no/g" /etc/ssh/ssh_config
       
 
       - run:
