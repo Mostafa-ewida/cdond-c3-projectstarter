@@ -11,6 +11,7 @@ commands:
           event: fail
           channel: circleci-integration
           template: basic_fail_1
+
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID 1.
     parameters:
@@ -27,6 +28,7 @@ commands:
             --stack-name udapeople-backend-<<parameters.Workflow_ID>>
             aws s3 rm s3://udapeople-meewida1234 --recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
+
       - notify_on_failure
 
   revert-migrations:
@@ -205,6 +207,10 @@ jobs:
       - attach_workspace:
           at: ~/
       # attach workspace
+
+      - run:
+          name: make cache fast
+          command: yum makecache fast
 
       - run: 
           name: install aws-cli tar and gzip
