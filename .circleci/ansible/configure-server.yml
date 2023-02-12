@@ -18,7 +18,8 @@
         seconds: 20
       
     - name: test connection
-      ansible.builtin.ping:
+      ping:
+        
 
     - name: "Install Python for Ansible."
       become: true
