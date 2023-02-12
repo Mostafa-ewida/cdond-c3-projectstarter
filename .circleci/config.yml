@@ -217,16 +217,13 @@ jobs:
       - run:
           name: configuring ~/ansible.cfg
           command: |
-            mkdir -p ~/ansible
-            export ANSIBLE_HOST_KEY_CHECKING=False
-            touch ~/ansible/ansible.cfg
-            echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
             sed -i "s/#   StrictHostKeyChecking ask/   StrictHostKeyChecking no/g" /etc/ssh/ssh_config
+        
       - run:
           name: Configure server
           command: |
             cd  .circleci/ansible/
-            ansible-playbook configure-server.yml -i inventory.txt
+            ansible-playbook configure-server.yml -i inventory.txt --limit @/root/project/.circleci/ansible/configure-server.retry
 
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
