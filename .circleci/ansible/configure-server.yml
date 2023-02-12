@@ -13,7 +13,7 @@
 
   pre_tasks:
     - name: "Wait 600 seconds for target connection to become reachable/usable."
-      ansible.builtin.wait_for_connection:
+      wait_for_connection:
         timeout: 2
 
     - name: "Install Python for Ansible."
@@ -28,16 +28,7 @@
         state: latest
         update_cache: yes
 
-    - name: "Install node pm2 and npm for Ansible"
-      apt:
-        name: ['nodejs', 'npm']
-        state: latest
-
-      
-    - name: "install pm2 using npm"
-      npm:
-        name: pm2
-        global: yes
+ 
 
   environment:
     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
@@ -49,3 +40,8 @@
     TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE')}}"
     TYPEORM_MIGRATIONS: "{{ lookup('env', 'TYPEORM_MIGRATIONS')}}"
     TYPEORM_MIGRATIONS_DIR: "{{ lookup('env', 'TYPEORM_MIGRATIONS_DIR')}}"
+
+
+roles: 
+  - configure-server
+  - configure-prometheus-node-exporter

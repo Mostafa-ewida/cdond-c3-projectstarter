@@ -1,0 +1,12 @@
+---
+
+- name: "Install node pm2 and npm for Ansible"
+  apt:
+    name: ['nodejs', 'npm']
+    state: latest
+
+
+- name: "install pm2 using npm"
+  npm:
+    name: pm2
+    global: yes
