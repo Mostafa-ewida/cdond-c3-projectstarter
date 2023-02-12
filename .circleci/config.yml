@@ -223,7 +223,7 @@ jobs:
           name: Configure server
           command: |
             cd  .circleci/ansible/
-            ansible-playbook configure-server.yml -i inventory.txt --limit @/root/project/.circleci/ansible/configure-server.retry
+            ansible-playbook configure-server.yml -i inventory.txt
 
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
