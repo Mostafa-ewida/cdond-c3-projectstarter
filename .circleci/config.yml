@@ -183,7 +183,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
             echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
 
       - persist_to_workspace:
@@ -216,7 +216,9 @@ jobs:
           command: yum install tar sed gzip awscli -y
       - run:
           name: configuring ~/ansible.cfg
-          command: echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
+          command: |
+            touch ~/ansible/ansible.cfg
+            echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
       - run:
           name: Configure server
           command: |
@@ -262,7 +264,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances  --filters "Name=tag:Name,Values=backend-udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances  --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
