@@ -14,7 +14,7 @@
   pre_tasks:
     - name: "Wait 600 seconds for target connection to become reachable/usable."
       pause:
-        seconds: 600
+        seconds: 20
 
     - name: "Install Python for Ansible."
       package:
@@ -28,7 +28,7 @@
         update_cache: yes
 
     - name: "Install node pm2 and npm for Ansible."
-      yum:
+      apt:
         name: "{{ item }}"
         state: latest
       with_items:
