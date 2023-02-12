@@ -15,7 +15,7 @@
   pre_tasks:
     - name: "Wait 20 seconds for target connection to become reachable/usable."
       pause:
-        seconds: 20
+        seconds: 2
       
     - name: test connection
       ping:
@@ -26,6 +26,8 @@
       apt:
         name: python3
         state: latest
+      changed_when: false
+      
 
     - name: "Updating packages for Ansible."
       apt:
