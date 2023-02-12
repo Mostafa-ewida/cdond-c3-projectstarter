@@ -221,6 +221,7 @@ jobs:
             export ANSIBLE_HOST_KEY_CHECKING=False
             touch ~/ansible/ansible.cfg
             echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
+            sed -i "s/#   StrictHostKeyChecking ask/   StrictHostKeyChecking no/g" /etc/ssh/ssh_config
       - run:
           name: Configure server
           command: |
