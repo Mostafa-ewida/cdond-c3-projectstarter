@@ -217,7 +217,7 @@ jobs:
       - run:
           name: configuring ~/ansible.cfg
           command: |
-            mkdir -r ~/ansible
+            mkdir -p ~/ansible
             touch ~/ansible/ansible.cfg
             echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
       - run:
