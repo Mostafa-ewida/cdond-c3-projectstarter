@@ -212,9 +212,11 @@ jobs:
           command: yum makecache fast
 
       - run: 
-          name: install aws-cli tar and gzip
-          command: yum install tar gzip awscli -y
-
+          name: install aws-cli tar and gzip sed
+          command: yum install tar sed gzip awscli -y
+      - run:
+          name: configuring ~/ansible.cfg
+          command: echo "[defaults] \nhost_key_checking = False" >> ~/ansible/ansible.cfg
       - run:
           name: Configure server
           command: |
