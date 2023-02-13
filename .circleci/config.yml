@@ -46,7 +46,7 @@ commands:
             then
               cd ~/project/backend
               npm install
-              npm run migration:revert 
+              npm run migrations:revert 
                 #Add revert code here. You can find this in the Getting Started section.
               
             fi
@@ -303,11 +303,18 @@ jobs:
           at: ~/# attach workspace
       - restore_cache:
           keys: [backend-deps]
+
+      - run:
+          name: install ansible
+          command: |
+            sudo apt update
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
       - run:
           name: Install dependencies
           command: | 
              sudo apt-get update
-             sudo apt install tar sed gzip awscli nodejs npm python3 ansible -y
+             sudo apt install tar sed gzip awscli nodejs npm python3 
       - run:
           name: Deploy backend
           command: |
@@ -337,7 +344,8 @@ jobs:
   #     - run:
   #         name: Install dependencies
   #         command: |
-  #           # your code here
+  #           sudo apt-get update
+  #           sudo apt install tar sed gzip awscli nodejs npm python3 ansible -y
   #     - run:
   #         name: Get backend url
   #         command: |
@@ -350,7 +358,10 @@ jobs:
   #         name: Frontend smoke test.
   #         command: |
   #           # your code here
-      # Here's where you will add some code to rollback on failure  
+
+  #     - destroy-environment
+  #     - revert-migrations
+  #     #Here's where you will add some code to rollback on failure  
 
 #   cloudfront-update:
 #     docker:
@@ -430,4 +441,5 @@ workflows:
       - notify_on_success:
           requires:
             - deploy-frontend
+            - deploy-backend
 
