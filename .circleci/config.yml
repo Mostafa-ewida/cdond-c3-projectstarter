@@ -194,7 +194,6 @@ jobs:
             - project/.circleci/ansible/inventory.txt
 
       - destroy-environment
-      - revert-migration
       # Here's where you will add some code to rollback on failure      
 
   configure-infrastructure:
