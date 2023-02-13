@@ -42,10 +42,11 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             SUCCESS=$(curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 )
-            if(( $SUCCESS==1 )); 
+            if(( $SUCCESS==9 )); 
             then
               cd ~/project/backend
               npm install
+              npm audit fix
               npm run migrations:revert 
                 #Add revert code here. You can find this in the Getting Started section.
               
@@ -164,7 +165,13 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout # Checkout code from git
-      - run: sudo apt install -y tar gzip awscli
+      - run: 
+          name: install dep 
+          command: |
+            sudo apt update
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
+            sudo apt install -y tar gzip awscli
       - run:
           name: Ensure back-end infrastructure exists
           command: |
@@ -253,7 +260,7 @@ jobs:
           command: |
                   if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
                   then
-                    curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234  -d '1'    
+                    curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234  -d '9'    
                   fi
       - destroy-environment
       - revert-migrations
