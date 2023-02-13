@@ -274,9 +274,7 @@ jobs:
       -   checkout # Checkout code from git
       - run:
           name: Install dependencies
-          command: |
-                  sudo apt update
-                  sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
+          command: sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
       - run: 
           name: install aws-cli tar and gzip 
           command: sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
