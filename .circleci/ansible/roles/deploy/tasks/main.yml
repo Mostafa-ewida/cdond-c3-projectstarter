@@ -5,10 +5,10 @@
     path: ~/backend-app
     state: directory
 
-- name: "untar backend files"
+- name: "Unarchive backend files"
   unarchive:
     src: artifact.tar.gz
-    dest: ~/backend-app
+    dest: /home/ubuntu/backend-app
 
 - name: "installing node deps"
   shell: | 
