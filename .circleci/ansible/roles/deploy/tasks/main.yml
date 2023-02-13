@@ -5,8 +5,10 @@
     path: ~/backend-app
     state: directory
   
-  - name"
-
+  - name: "create backend dir"
+    file:
+      path: ~/backend-app
+      state: directory
 
 - name: "untar backend files"
   unarchive:
