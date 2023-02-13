@@ -371,12 +371,13 @@ jobs:
       - run:
           name: Get backend url
           command: |
-             export BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+              
 
       - run:
           name: Backend smoke test.
           command: |
               # Fetch and prepare the BACKEND_IP env var
+              export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)   
               export API_URL="http://${BACKEND_IP}:3030"
               echo "${API_URL}"
               if curl "${API_URL}/api/status" | grep "ok"
