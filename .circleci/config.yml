@@ -265,6 +265,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            sudo apt-get update
             sudo apt install tar sed gzip awscli nodejs npm python3 ansible -y
       - run:
           name: Get backend url
