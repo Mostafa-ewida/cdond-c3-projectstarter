@@ -1,0 +1,11 @@
+---
+
+- name: "untar the archive"
+  
+
+
+
+- name: "install pm2 using npm"
+  npm:
+    name: pm2
+    global: yes

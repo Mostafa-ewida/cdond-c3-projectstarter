@@ -300,8 +300,8 @@ jobs:
       - run:
           name: Install dependencies
           command: | 
-            sudo apt install tar sed gzip awscli -y
-            
+              sudo apt-get update
+              sudo apt install tar sed gzip awscli nodejs npm python3 ansible -y
       - run:
           name: Deploy backend
           command: |
@@ -318,8 +318,10 @@ jobs:
 
   # smoke-test:
   #   docker:
+  #     - image: 
   #     # Lightweight Docker image 
   #   steps:
+  #     - checkout 
   #     # Checkout code from git
   #     - run:
   #         name: Install dependencies
