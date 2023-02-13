@@ -273,9 +273,16 @@ jobs:
     steps:
       -   checkout # Checkout code from git
 
-      - run: 
-          name: install aws-cli tar and gzip 
-          command: sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
+      - run:
+          name: Install AWS CLI dependencies
+          working_directory: /tmp
+          command: |
+            sudo apt-get update && sudo apt-get install -yy less
+            sudo apt install unzip nodejs npm
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+            unzip awscliv2.zip
+            sudo ./aws/install
 
       - run:
           name: Get backend url
