@@ -268,13 +268,14 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image:   cimg/base:2022.09
+      - image:   cimg/base:stable
       # Docker image here that supports AWS CLI
     steps:
       -   checkout # Checkout code from git
       - run:
           name: Install dependencies
           command: |
+                  sudo apt update
                   sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
       - run: 
           name: install aws-cli tar and gzip 
