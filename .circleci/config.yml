@@ -275,8 +275,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            
-            sudo apt install tar sed gzip awscli nodejs npm python3 ansible -y
+                  sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
+      - run: 
+          name: install aws-cli tar and gzip 
+          command: sudo apt install tar  gzip awscli nodejs npm python3 ansible -y
+
       - run:
           name: Get backend url
           command: |
