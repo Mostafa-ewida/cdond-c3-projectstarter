@@ -4,11 +4,13 @@
   file:
     path: ~/backend-app
     state: directory
+  
+  - name"
 
 
 - name: "untar backend files"
   unarchive:
-    src: artifact.tar.gz
+    remote_src: artifact.tar.gz
     dest: ~/backend-app
 
 - name: "installing node deps"
