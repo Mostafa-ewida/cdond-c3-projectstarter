@@ -323,6 +323,11 @@ jobs:
              sudo apt-get update
              sudo apt install tar sed gzip awscli nodejs npm python3 
       - run:
+          name: Add back-end ip to ansible inventory
+          command: |                                                                                                     
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
+            echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
+      - run:
           name: package backend
           command: |
             cd backend
