@@ -1,9 +1,4 @@
 ---
-
-- name: "create a backend app dir"
-  file:
-    path: ~/backend-app
-    state: directory
   
   - name: "create backend dir"
     file:
