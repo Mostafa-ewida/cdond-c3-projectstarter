@@ -1,11 +1,24 @@
 ---
 
-- name: "untar the archive"
-  
+- name: "create a backend app dir"
+  files:
+    path: ~/backend-app
+    state: directory
 
 
+- name: "untar backend files"
+  unarchive:
+    src: artifact.tar.gz
+    dest: ~/backend-app
 
-- name: "install pm2 using npm"
-  npm:
-    name: pm2
-    global: yes
+- name: "installing node deps"
+  shell: | 
+      cd ~/backend-app
+      npm i 
+
+- name: "execute node using pm2"
+  shell: | 
+      cd ~/backend-app/dist
+      ls -al
+      pm2 stop default
+      pm2 start main.js
