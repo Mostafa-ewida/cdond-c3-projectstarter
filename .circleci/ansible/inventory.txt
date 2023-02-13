@@ -1,6 +1,5 @@
 ansible_connection=ssh
 [web]
-100.25.15.189
 
 
 
