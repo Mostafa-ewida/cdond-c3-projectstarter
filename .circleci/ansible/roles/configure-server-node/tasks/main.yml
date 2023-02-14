@@ -1,6 +1,6 @@
 ---
 
-- name: "Install node pm2 and npm for Ansible"
+- name: "Install node and npm for Ansible"
   apt:
     name: ['nodejs', 'npm']
     state: latest
