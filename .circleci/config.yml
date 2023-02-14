@@ -166,6 +166,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: install deps
+          command: sudp apt install gzip tar awscli -y
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
@@ -195,9 +198,6 @@ jobs:
                 else
                     exit 1
                 fi
-      - run:
-          name: install tar & gzip utility
-          command: yum install -y tar gzip
       - run:
           name: Add back-end ip to ansible inventory
           command: |
