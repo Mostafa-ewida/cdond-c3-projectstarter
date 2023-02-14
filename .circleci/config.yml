@@ -200,14 +200,7 @@ jobs:
                 else
                     exit 1
                 fi
-      - run:
-          name: Add back-end ip to ansible inventory
-          command: |
-            cd .circleci/ansible
-            aws ec2 describe-instances \
-            --filters Name=tag:Name,Values="backend-meewida1234" \
-            --query  'Reservations[*].Instances[*].PublicIpAddress' \
-            --output text >> inventory.txt
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -240,6 +233,15 @@ jobs:
       - run: 
           name: install aws-cli tar and gzip 
           command: sudo apt install tar sed gzip awscli -y
+      
+      - run:
+          name: Add back-end ip to ansible inventory
+          command: |
+            cd .circleci/ansible
+            aws ec2 describe-instances \
+            --filters Name=tag:Name,Values="backend-meewida1234" \
+            --query  'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory.txt
 
       - run:
           name: Configure server
@@ -248,10 +250,7 @@ jobs:
             cat inventory.txt 
             ansible-playbook configure-server.yml -i inventory.txt
             
-      - run: 
-          name: checking python3 exist
-          command: python3 --version
-        
+
 
       # - destroy-environment
       # Here's where you will add some code to rollback on failure      
