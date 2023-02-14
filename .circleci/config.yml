@@ -167,7 +167,7 @@ jobs:
       - checkout
       - run: 
           name: install aws-cli tar and gzip 
-          command: sudo apt install tar  gzip awscli -y
+          command: sudo apt update -y ; sudo apt install tar  gzip awscli -y
       - run:
           name: Ensure back-end infrastructure exists
           command: |
