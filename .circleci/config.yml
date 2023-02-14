@@ -164,33 +164,22 @@ jobs:
       - image:   cimg/base:2022.09
       # Docker image here that supports AWS CLI
     steps:
-      - checkout # Checkout code from git
-      - run: 
-          name: install dep 
-          command: |
-            sudo apt update
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible -y
-            sudo apt install -y tar gzip awscli
+      - checkout
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-           aws cloudformation deploy \
-            --template-file .circleci/files/backend.yml \
-            --stack-name "udapeople-backend-meewida1234" \
-            --parameter-overrides ID="udapeople-backend-meewida1234"  \
-            --tags project=udapeople 
-
-
+            aws cloudformation deploy \
+              --template-file .circleci/files/backend.yml \
+              --tags project=udapeople \
+              --stack-name "udapeople-backend-meewida1234" \
+              --parameter-overrides ID="meewida1234"
               exit_code=$?
-
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
-              then
-                  exit 0
-              else
-                  exit 1
-              fi
-              
+                then
+                    exit 0
+                else
+                    exit 1
+                fi
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -198,27 +187,30 @@ jobs:
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
               --stack-name "udapeople-frontend-meewida1234" \
-              --parameter-overrides ID="udapeople-frontend-meewida1234"
-
+              --parameter-overrides ID="meewida1234"
               exit_code=$?
-
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
                     exit 0
                 else
                     exit 1
                 fi
-              
+      - run:
+          name: install tar & gzip utility
+          command: yum install -y tar gzip
       - run:
           name: Add back-end ip to ansible inventory
-          command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
-            echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
-
+          command: |
+            cd .circleci/ansible
+            aws ec2 describe-instances \
+            --filters Name=tag:Name,Values="backend-meewida1234" \
+            --query  'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
+      # - destroy-environment
 
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
@@ -360,7 +352,6 @@ jobs:
             npm i
             npm run build
             cd ..
-            # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
             cp artifact.tar.gz  .circleci/ansible/roles/deploy/files
             cd .circleci/ansible
