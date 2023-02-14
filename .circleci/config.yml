@@ -262,7 +262,7 @@ jobs:
       - checkout
       - run:
           name: install deps
-          command: yum install awscli
+          command: sudo apt install awscli
       - run:
           name: Run migrations
           command: |
