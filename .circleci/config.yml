@@ -175,13 +175,15 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            aws cloudformation deploy \
+           STATUS=$(aws cloudformation deploy \
             --template-file .circleci/files/backend.yml \
             --stack-name "udapeople-backend-meewida1234" \
             --parameter-overrides ID="udapeople-backend-meewida1234"  \
-            --tags project=udapeople
+            --tags project=udapeople)
 
-            if [[ $? == 0  ||  $? == 255 ]]; 
+            echo $STATUS
+
+            if [[ $STATUS == 0  || $STATUS == 255 ]]; 
               then
                   exit 0
               else
