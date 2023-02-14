@@ -161,16 +161,14 @@ jobs:
 
   deploy-infrastructure:
     docker: 
-      - image:   cimg/base:2022.09
+      - image:  amazon/aws-cli
       # Docker image here that supports AWS CLI
     steps:
       - checkout
       - run: 
           name: install aws-cli tar and gzip 
-          command: sudo apt update -y ; sudo apt install tar  gzip awscli -y
-      - run:
-          name: echo SHELL
-          command: echo $SHELL
+          command: yum install -y tar gzip
+
       - run:
           name: Ensure back-end infrastructure exists
           command: |
