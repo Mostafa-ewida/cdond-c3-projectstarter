@@ -165,9 +165,9 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout
-      - run:
-          name: install deps
-          command: sudo apt install gzip tar awscli -y
+      - run: 
+          name: install aws-cli tar and gzip 
+          command: sudo apt install tar  gzip awscli -y
       - run:
           name: Ensure back-end infrastructure exists
           command: |
