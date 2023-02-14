@@ -256,13 +256,15 @@ jobs:
 
   run-migrations:
     docker: 
-      - image: circleci/node:13.8.0
+      - image: cimg/python:3.10
       # Docker image here that supports NodeJS
     steps:
       - checkout
       - run:
           name: install deps
-          command: sudo apt install awscli
+          command: sudo apt update; sudo apt install awscli nodejs
+      - restore_cache:
+          keys: [backend-deps]
       - run:
           name: Run migrations
           command: |
