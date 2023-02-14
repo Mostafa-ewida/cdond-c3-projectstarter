@@ -182,8 +182,9 @@ jobs:
             --tags project=udapeople 
 
 
+              exit_code=$?
 
-            if [[ $? == 0  || $? == 255 ]]; 
+              if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
               then
                   return 0
               else
@@ -199,7 +200,9 @@ jobs:
               --stack-name "udapeople-frontend-meewida1234" \
               --parameter-overrides ID="udapeople-frontend-meewida1234"
 
-              if [[ $? == 0  ||  $? == 255 ]]; 
+              exit_code=$?
+
+              if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
                     exit 0
                 else
