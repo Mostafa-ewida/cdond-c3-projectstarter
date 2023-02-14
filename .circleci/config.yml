@@ -262,7 +262,8 @@ jobs:
       - checkout
       - run:
           name: install deps
-          command: sudo apt update; sudo apt install awscli nodejs npm
+          command: sudo apt update; curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt install -y nodejs
       - restore_cache:
           keys: [backend-deps]
       - run:
