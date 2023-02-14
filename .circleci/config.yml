@@ -262,7 +262,7 @@ jobs:
       - checkout
       - run:
           name: install deps
-          command: sudo apt update; sudo apt upgrade ; sudo apt install -y nodejs
+          command: sudo apt update; sudo apt upgrade ; sudo apt install -y nodejs npm
       - restore_cache:
           keys: [backend-deps]
       - run:
