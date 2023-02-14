@@ -171,11 +171,12 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
-            aws cloudformation deploy \
+              aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
               --stack-name "udapeople-backend-meewida1234" \
-              --parameter-overrides ID="meewida1234"
+              --parameter-overrides ID="uda-backend-meewida1234"
+
               exit_code=$?
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
@@ -186,11 +187,12 @@ jobs:
       - run:
           name: Ensure front-end infrastructure exist
           command: |
-            aws cloudformation deploy \
+              aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
               --tags project=udapeople \
               --stack-name "udapeople-frontend-meewida1234" \
-              --parameter-overrides ID="meewida1234"
+              --parameter-overrides ID="uda-frontend-meewida1234"
+
               exit_code=$?
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
@@ -212,7 +214,7 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       # - destroy-environment
 
-      - destroy-environment
+      # - destroy-environment
       # Here's where you will add some code to rollback on failure      
 
   configure-infrastructure:
