@@ -176,7 +176,6 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-backend-meewida1234" \
               --parameter-overrides ID="uda-backend-meewida1234"
-
               exit_code=$?
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
@@ -192,7 +191,6 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-meewida1234" \
               --parameter-overrides ID="uda-frontend-meewida1234"
-
               exit_code=$?
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
