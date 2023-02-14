@@ -167,7 +167,7 @@ jobs:
       - checkout
       - run:
           name: install deps
-          command: sudp apt install gzip tar awscli -y
+          command: sudo apt install gzip tar awscli -y
       - run:
           name: Ensure back-end infrastructure exists
           command: |
