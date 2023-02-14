@@ -262,7 +262,7 @@ jobs:
       - checkout
       - run:
           name: install deps
-          command: sudo apt update; sudo apt install awscli nodejs
+          command: sudo apt update; sudo apt install awscli nodejs npm
       - restore_cache:
           keys: [backend-deps]
       - run:
