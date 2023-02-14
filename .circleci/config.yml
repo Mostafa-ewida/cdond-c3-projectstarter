@@ -180,6 +180,14 @@ jobs:
             --stack-name "udapeople-backend-meewida1234" \
             --parameter-overrides ID="udapeople-backend-meewida1234"  \
             --tags project=udapeople
+
+            if [ $? -eq 0 ] || [ $? -eq 255 ] 
+              then
+                  return 0
+              else
+                  return 1
+              fi
+              
       - run:
           name: Ensure front-end infrastructure exist
           command: |
@@ -188,6 +196,13 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-meewida1234" \
               --parameter-overrides ID="udapeople-frontend-meewida1234"
+
+            if [ $? -eq 0 ] || [ $? -eq 255 ] 
+              then
+                  return 0
+              else
+                  return 1
+              fi
               
       - run:
           name: Add back-end ip to ansible inventory
