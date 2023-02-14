@@ -187,7 +187,7 @@ jobs:
           name: Ensure front-end infrastructure exist
           command: |
             aws cloudformation deploy \
-              --template-file .circleci/files/frontend.yml \
+              --template-file .circleci/files/backend.yml \
               --tags project=udapeople \
               --stack-name "udapeople-frontend-meewida1234" \
               --parameter-overrides ID="meewida1234"
