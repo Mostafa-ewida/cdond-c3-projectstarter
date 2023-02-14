@@ -201,6 +201,10 @@ jobs:
           name: install tar gzip
           command: yum install -y tar gzip
 
+      - run:
+          name: echo SHELL
+          command: echo $SHELL
+
       - persist_to_workspace:
           root: ~/
           paths:
