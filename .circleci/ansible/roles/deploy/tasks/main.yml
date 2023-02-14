@@ -1,6 +1,6 @@
 
 ---
-- name: "Creates backend app directory"
+- name: Create directory if it doesn't exist
   file:
     path: ~/backend-app
     state: directory
