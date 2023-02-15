@@ -1,0 +1,13 @@
+
+> glee2@1.0.0 premigrations /home/lofi/Downloads/FWD/proj3/cdond-c3-projectstarter/backend
+> npm run build
+
+
+> glee2@1.0.0 build /home/lofi/Downloads/FWD/proj3/cdond-c3-projectstarter/backend
+> tsc
+
+
+> glee2@1.0.0 migrations /home/lofi/Downloads/FWD/proj3/cdond-c3-projectstarter/backend
+> ts-node -r dotenv/config node_modules/.bin/typeorm migration:run
+
+Error during migration run:
