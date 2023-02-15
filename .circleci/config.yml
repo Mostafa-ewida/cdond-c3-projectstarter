@@ -265,7 +265,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            apt install awscli curl
+            sudo apt install -y awscli curl
       - restore_cache:
           keys: [backend-build]
       - run:
