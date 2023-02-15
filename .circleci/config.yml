@@ -272,7 +272,7 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm  install winston@3.3.3  ajv@^6.9.1  reflect-metadata@0.1.12 
+            npm  install winston@2.4.2  ajv@^6.9.1  reflect-metadata@0.1.12 
             npm install
             npm run build
             npm run migrations --verbose >> migrations_dump.txt
