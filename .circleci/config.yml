@@ -273,9 +273,9 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm config set registry https://registry.npmjs.org/
-            npm install glee
-            npm install winston@2.4.2  ajv@^6.9.1  reflect-metadata@0.1.12   ts-node
+            # npm config set registry https://registry.npmjs.org/
+            # npm install glee2
+            # npm install winston@2.4.2  ajv@^6.9.1  reflect-metadata@0.1.12   ts-node
             npm install
             npm run build
             npm run migrations --verbose >> migrations_dump.txt
