@@ -257,7 +257,7 @@ jobs:
 
   run-migrations:
     docker: 
-      - image: Python:3.7-alpine3.16
+      - image: python:3.7-alpine3.16
       # Docker image here that supports NodeJS
     steps:
       - checkout
