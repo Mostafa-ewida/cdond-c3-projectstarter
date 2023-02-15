@@ -257,7 +257,7 @@ jobs:
 
   run-migrations:
     docker: 
-      - image: cimg/
+      - image: circleci/node:13.8.0
       # Docker image here that supports NodeJS
     steps:
       - checkout
@@ -265,7 +265,7 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            apt install awscli curl
       - restore_cache:
           keys: [backend-build]
       - run:
@@ -378,7 +378,7 @@ jobs:
   smoke-test:
     docker:
       # Lightweight Docker image
-      - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11 
     steps:
       # Checkout code from git
       - checkout
@@ -386,6 +386,7 @@ jobs:
           name: Install dependencies
           working_directory: /tmp
           command: |
+            apk add --update curl nodejs npm
             pip install awscli
 
       - run:
