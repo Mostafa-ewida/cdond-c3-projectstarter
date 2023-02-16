@@ -218,7 +218,7 @@ jobs:
     steps:
       - checkout # Checkout code from git
       - add_ssh_keys:
-          fingerprints: ["1b:40:2f:71:d3:30:f4:37:43:be:75:d7:55:a6:b3:17"]
+          fingerprints: ["d7:70:2b:5d:4b:87:01:27:c1:8a:b1:2f:90:43:80:1f"]
 
       - attach_workspace:
           at: ~/
@@ -321,12 +321,7 @@ jobs:
       # Here's where you will add some code to rollback on failure      
 
 
-      - run:
-          name: Install dependencies
-          working_directory: /tmp
-          command: |
-            apk add --update curl nodejs npm
-            pip install awscli
+
 
 
 
@@ -337,7 +332,7 @@ jobs:
     steps:
       - checkout 
       - add_ssh_keys:
-          fingerprints: ["1b:40:2f:71:d3:30:f4:37:43:be:75:d7:55:a6:b3:17"]
+          fingerprints: ["d7:70:2b:5d:4b:87:01:27:c1:8a:b1:2f:90:43:80:1f"]
                           
       - attach_workspace:
           at: ~/# attach workspace

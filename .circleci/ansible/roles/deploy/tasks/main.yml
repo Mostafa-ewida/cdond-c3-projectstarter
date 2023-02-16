@@ -1,9 +1,11 @@
 
 ---
-- name: Create directory if it doesn't exist
+
+- name: Create directory
   file:
-    path: ~/backend-app
+    path: ~/backend-app/my-directory
     state: directory
+
 
 
 - name: "Unarchiving backend files"
@@ -12,12 +14,17 @@
     dest: ~/backend-app
 
 
-- name: 
+- name: installing npm
+  become: true
+  shell: | 
+     apt update -y
+     apt install npm -y
 
 - name: "Installing Node Dependencies"
   shell: |
     cd ~/backend-app
     npm i
+    npm install pm2
 
 - name: "Execute Node app with PM2"
   shell: |
