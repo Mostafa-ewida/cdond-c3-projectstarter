@@ -240,7 +240,6 @@ jobs:
           command: |
             cd .circleci/ansible
             aws ec2 describe-instances \
-            --filters Name=tag:Name,Values="backend-meewida1234" \
             --query  'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> inventory.txt
 
@@ -302,7 +301,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances  --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+            export BACKEND_IP=$(aws ec2 describe-instances   --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
