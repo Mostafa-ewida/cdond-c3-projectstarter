@@ -17,9 +17,7 @@
       pause:
         seconds: 45
       
-    - name: test connection
-      ping:
-        
+
 
     - name: "Install Python for Ansible."
       become: true

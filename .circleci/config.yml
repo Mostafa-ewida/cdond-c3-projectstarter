@@ -328,6 +328,7 @@ jobs:
       - checkout 
       - add_ssh_keys:
           fingerprints: ["1b:40:2f:71:d3:30:f4:37:43:be:75:d7:55:a6:b3:17"]
+                          
       - attach_workspace:
           at: ~/# attach workspace
       - restore_cache:
@@ -345,7 +346,7 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=udapeople-backend-meewida1234" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
+            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances " --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
             echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
 
       - run:
