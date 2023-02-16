@@ -336,8 +336,6 @@ jobs:
                           
       - attach_workspace:
           at: ~/# attach workspace
-      - restore_cache:
-          keys: [backend-deps]
 
       - run:
           name: Install dependencies
