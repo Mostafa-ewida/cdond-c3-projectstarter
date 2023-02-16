@@ -339,7 +339,7 @@ jobs:
           name: Install dependencies
           command: | 
              sudo  apt update -y && \
-             sudo  apt install -y tar ansible gzip nodejs npm python3  
+             sudo  apt install -y tar ansible gzip  python3  
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
