@@ -347,7 +347,11 @@ jobs:
       - run:
           name: Install dependencies
           command: | 
-             apk add --update tar ansible gzip aws-cli nodejs npm python3
+              apk update && \
+              apk add tar ansible gzip && \
+              apk add --update --no-cache nodejs npm python3 py-pip && \
+              pip install --upgrade pip && \
+              pip install awscli
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
