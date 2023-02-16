@@ -258,7 +258,7 @@ jobs:
 
   run-migrations:
     docker: 
-      - image: cimg/node:19.6.0
+      - image: circleci/node:13.8.0
       # Docker image here that supports NodeJS
     steps:
       - checkout
@@ -271,7 +271,7 @@ jobs:
       - run:
           name: Send migration results to kvdb
           command: |
-                  if grep -q "has been executed successfully." ~/project/backend/migrations.txt
+                  if grep -q "FROM" ~/project/backend/src/migrations.txt
                   then
                     curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234  -d '9'    
                   fi
