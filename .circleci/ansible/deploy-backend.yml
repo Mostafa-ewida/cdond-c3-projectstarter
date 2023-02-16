@@ -15,7 +15,7 @@
   pre_tasks:
     - name: "Wait 20 seconds for target connection to become reachable/usable."
       pause:
-        seconds: 2
+        seconds: 60
       
 
 
@@ -24,7 +24,6 @@
       apt:
         name: python3
         state: latest
-      changed_when: false
       
 
 
