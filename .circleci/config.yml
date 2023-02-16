@@ -273,7 +273,7 @@ jobs:
           command: |
                   if grep -q "FROM" ~/project/backend/src/migrations.txt
                   then
-                    curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234  -d '9'    
+                    curl --insecure https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234  -d '9'    
                   fi
       # - destroy-environment
       # - revert-migrations
