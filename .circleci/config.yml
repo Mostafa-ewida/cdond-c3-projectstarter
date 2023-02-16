@@ -329,7 +329,7 @@ jobs:
       - image: mareimorsy/aws-node
       # Docker image here that supports Ansible
     steps:
-      - checkout 
+      - checkout # Checkout code from git
       - add_ssh_keys:
           fingerprints: ["d7:70:2b:5d:4b:87:01:27:c1:8a:b1:2f:90:43:80:1f"]
                           
