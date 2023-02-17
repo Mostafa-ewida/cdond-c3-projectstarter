@@ -1,30 +1,35 @@
-- name: Create Backend Directory
-  file:
-    path: /home/ubuntu/backend
-    state: directory
-
-- copy:
-    src: ~/project/.circleci/ansible/roles/deploy/files/artifact.tar.gz
-    dest: /home/ubuntu/backend
-
-- name: Extract artifact.tar.gz to EC2 
+---
+- name: 'update and upgrade packages.'
+  become: true
+  apt:
+    upgrade: true
+    update_cache: true
+    cache_valid_time: 86400
+- name: remove unneeded deps
+  become: true
+  apt:
+    autoremove: true
+- name: install deps
+  become: true
+  apt:
+    name: ['nodejs', 'npm']
+    state: latest
+    update_cache: true
+- name: install pm2
+  become: true
+  npm:
+    name: pm2
+    global: true
+    state: latest
+    production: true
+- name: extract artifact
+  become: true
   unarchive:
-    src: artifact.tar.gz
-    dest: /home/ubuntu/backend
+    src: files/artifact.tar.gz
+    dest: .
 
-- name: "Installing Node Dependencies"
+- name: start app
+  become: true
   shell: |
-    cd /home/ubuntu/backend
-    npm i
-- name: Start the app
-  shell: |
-    export TYPEORM_ENTITIES=./backend/dist/modules/domain/**/*.entity{.ts,.js}
-    export TYPEORM_HOST=localhost
-    export TYPEORM_PORT=5532
-    export TYPEORM_USERNAME=postgres
-    export TYPEORM_PASSWORD=password
-    export TYPEORM_DATABASE=glee
-    export TYPEORM_MIGRATIONS_DIR=./backend/dist/migrations
-    export TYPEORM_MIGRATIONS=./backend/dist/migrations/*.ts
-    pm2 stop default
-    pm2 start -f /home/ubuntu/backend/dist/main.js
+    pm2 delete all
+    pm2 start npm -- start
