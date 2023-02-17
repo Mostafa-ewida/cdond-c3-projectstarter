@@ -481,21 +481,21 @@ workflows:
 
 
 
-run: |
-export OldWorkflowID=123
-echo "$(aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive)" >> return_bucket.txt
+# run: |
+# export OldWorkflowID=123
+# echo "$(aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive)" >> return_bucket.txt
 
 
-if grep -q "NoSuchBucket" return_bucket.txt
-then
-  echo 'Bucket does not exist'
-fi
+# if grep -q "NoSuchBucket" return_bucket.txt
+# then
+#   echo 'Bucket does not exist'
+# fi
 
-  if(( $aws_s3_return =~ "NoSuch")); 
-  then
-    cd ~/project/backend
-    npm install
-    npm audit fix
-    npm run migrations:revert 
-      #Add revert code here. You can find this in the Getting Started section.
-    curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
+#   if(( $aws_s3_return =~ "NoSuch")); 
+#   then
+#     cd ~/project/backend
+#     npm install
+#     npm audit fix
+#     npm run migrations:revert 
+#       #Add revert code here. You can find this in the Getting Started section.
+#     curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
