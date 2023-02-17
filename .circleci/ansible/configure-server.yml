@@ -29,8 +29,6 @@
       changed_when: false
       
 
-    - name: "Updating packages for Ansible."
-      shell: sudo apt update 
 
  
 
