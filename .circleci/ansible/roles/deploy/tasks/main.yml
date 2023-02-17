@@ -1,35 +1,22 @@
----
-- name: 'update and upgrade packages.'
-  become: true
-  apt:
-    upgrade: true
-    update_cache: true
-    cache_valid_time: 86400
-- name: remove unneeded deps
-  become: true
-  apt:
-    autoremove: true
-- name: install deps
-  become: true
-  apt:
-    name: ['nodejs', 'npm']
-    state: latest
-    update_cache: true
-- name: install pm2
-  become: true
-  npm:
-    name: pm2
-    global: true
-    state: latest
-    production: true
-- name: extract artifact
-  become: true
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: .
+- name: Create Backend Directory
+  file:
+    path: /home/ubuntu/backend
+    state: directory
 
-- name: start app
-  become: true
+- copy:
+    src: ~/project/.circleci/ansible/roles/deploy/artifact.tar.gz
+    dest: /home/ubuntu/backend
+
+- name: Extract artifact.tar.gz to EC2 
+  unarchive:
+    src: artifact.tar.gz
+    dest: /home/ubuntu/backend
+
+- name: "Installing Node Dependencies"
   shell: |
-    pm2 delete all
-    pm2 start npm -- start
+    cd /home/ubuntu/backend
+    npm i
+- name: Start the app
+  shell: |
+    pm2 stop default
+    pm2 start -f /home/ubuntu/backend/dist/main.js
