@@ -16,9 +16,7 @@
     - name: "Wait 20 seconds for target connection to become reachable/usable."
       pause:
         seconds: 20
-      
-
-        
+ 
 
     - name: "Install Python for Ansible."
       become: true
@@ -28,8 +26,6 @@
       changed_when: false
       
 
-
- 
 
   environment:
     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"

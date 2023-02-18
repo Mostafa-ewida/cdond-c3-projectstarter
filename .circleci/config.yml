@@ -319,7 +319,7 @@ jobs:
 
   deploy-backend:
     docker: 
-      - image: mareimorsy/aws-node
+      - image: python:3.7-alpine3.11
       # Docker image here that supports Ansible
     steps:
       - checkout # Checkout code from git
@@ -331,8 +331,8 @@ jobs:
       - run:
           name: Install dependencies
           command: | 
-             sudo  apt update -y && \
-             sudo  apt install -y tar ansible gzip  python3  
+           apk update && \
+           apk add tar ansible gzip python3 
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
