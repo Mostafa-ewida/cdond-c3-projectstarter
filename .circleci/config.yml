@@ -327,12 +327,12 @@ jobs:
           fingerprints: ["ff:25:a2:c6:98:ce:cf:cf:96:11:5d:a4:db:27:a5:da"]
                           
       - attach_workspace:
-          at: ~/# attach workspace
+          at: ~/ # attach workspace
       - run:
           name: Install dependencies
           command: | 
            apk update && \
-           apk add tar ansible gzip python3 ansible 
+           apk add tar ansible gzip python3 aws-cli 
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
