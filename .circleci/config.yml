@@ -332,7 +332,9 @@ jobs:
           name: Install dependencies
           command: | 
            apk update && \
-           apk add tar ansible gzip python3 aws-cli 
+           apk add tar ansible gzip python3 
+           pip install awscli
+
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
@@ -371,7 +373,6 @@ jobs:
           working_directory: /tmp
           command: |
             apk add --update curl nodejs npm
-            pip install awscli
 
       - run:
           name: Backend smoke test.
