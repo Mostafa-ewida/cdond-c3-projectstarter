@@ -332,7 +332,7 @@ jobs:
           name: Install dependencies
           command: | 
            apk update && \
-           apk add tar ansible gzip python3 
+           apk add tar ansible gzip python3 ansible -y 
       - run:
           name: Add back-end ip to ansible inventory
           command: |                                                                                                     
