@@ -1,9 +1,11 @@
 ---
 
 - name: "Install node and npm for Ansible"
+  become: true
   apt:
-    name: ['nodejs', 'npm']
+    name: ['nodejs','npm']
     state: latest
+    update_cache: true
 
 
 - name: "install pm2 using npm"
