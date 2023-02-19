@@ -318,8 +318,8 @@ jobs:
 
 
   deploy-backend:
-    docker: 
-      - image: python:3.7-alpine3.11
+    docker:
+      - image:   mareimorsy/aws-node
       # Docker image here that supports Ansible
     steps:
       - checkout # Checkout code from git
@@ -327,19 +327,20 @@ jobs:
           fingerprints: ["ff:25:a2:c6:98:ce:cf:cf:96:11:5d:a4:db:27:a5:da"]
                           
       - attach_workspace:
-          at: ~/ # attach workspace
+          at: ~/# attach workspace
       - run:
           name: Install dependencies
           command: | 
-           apk update && \
-           apk add tar ansible gzip python3 npm
-           pip install awscli
-
+             sudo  apt update -y && \
+             sudo  apt install -y tar ansible gzip  python3  
+      
       - run:
           name: Add back-end ip to ansible inventory
-          command: |                                                                                                     
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances  --query 'Reservations[*].Instances[*].PublicIpAddress' --output text);
-            echo $BACKEND_PUBLIC_IP >> .circleci/ansible/inventory.txt
+          command: |
+            cd .circleci/ansible
+            aws ec2 describe-instances \
+            --query  'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text >> inventory.txt
 
       - run:
           name: Deploy Ansible backend
