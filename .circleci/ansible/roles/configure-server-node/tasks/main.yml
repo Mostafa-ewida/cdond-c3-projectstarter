@@ -8,7 +8,7 @@
 #     update_cache: true
 
 
-- name: "install pm2 using npm"
-  npm:
-    name: pm2
-    global: yes
+# - name: "install pm2 using npm"
+#   npm:
+#     name: pm2
+#     global: yes
