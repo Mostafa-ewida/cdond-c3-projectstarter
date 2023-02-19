@@ -240,7 +240,8 @@ jobs:
           name: Configure server
           command: |
             cd  .circleci/ansible/
-            cat inventory.txt 
+            cat inventory.txt  
+            export ANSIBLE_HOST_KEY_CHECKING=false
             ansible-playbook -vvv configure-server.yml -i inventory.txt
             
 
