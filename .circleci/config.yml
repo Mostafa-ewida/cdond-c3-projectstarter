@@ -398,20 +398,28 @@ jobs:
       # - revert-migrations
       #Here's where you will add some code to rollback on failure  
 
-#   cloudfront-update:
-#     docker:
-#       # Docker image here that supports AWS CLI
-#     steps:
-#       # Checkout code from git
-#       - run:
-#           name: Install dependencies
-#           command: |
-#             # your code here
-#       - run:
-#           name: Update cloudfront distribution
-#           command: |
-#             # your code here
-#       # Here's where you will add some code to rollback on failure  
+  # cloudfront-update:
+  #   docker:
+  #     - image:   mareimorsy/aws-node
+  #     # Docker image here that supports Ansible
+  #   steps:
+  #     - checkout # Checkout code from git
+
+  #     # - run:
+  #     #     name: Install dependencies
+  #     #     command: | 
+  #     #        sudo  apt update -y && \
+  #     #        sudo  apt install -y tar  gzip  python3  
+
+  #     - run:
+  #         name: Update cloudfront distribution
+  #         command: |
+  #           aws cloudformation deploy \
+  #           --template-file .circleci/files/cloudfront.yml \
+  #           --stack-name InitialStack \
+  #           --parameter-overrides WorkflowID="udapeople-meewida1234" \
+  #           --tags project=udapeople
+  #     # Here's where you will add some code to rollback on failure  
 
 # cleanup:
 #     docker:
