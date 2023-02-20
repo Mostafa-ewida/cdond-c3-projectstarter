@@ -1,14 +1,14 @@
 ---
 
-# - name: "Install node and npm for Ansible"
-#   become: true
-#   apt:
-#     name: ['nodejs','npm']
-#     state: latest
-#     update_cache: true
+- name: "Install node and npm for Ansible"
+  become: true
+  apt:
+    name: ['nodejs','npm']
+    state: latest
+    update_cache: true
 
 
-# - name: "install pm2 using npm"
-#   npm:
-#     name: pm2
-#     global: yes
+- name: "install pm2 using npm"
+  npm:
+    name: pm2
+    global: yes

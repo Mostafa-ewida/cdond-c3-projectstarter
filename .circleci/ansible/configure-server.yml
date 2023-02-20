@@ -23,12 +23,12 @@
         seconds: 20
  
 
-    # - name: "Install Python for Ansible."
-    #   become: true
-    #   apt:
-    #     name: python3
-    #     state: latest
-    #   changed_when: false
+    - name: "Install Python for Ansible."
+      become: true
+      apt:
+        name: python3
+        state: latest
+      changed_when: false
       
 
 
@@ -45,5 +45,5 @@
 
 
   roles: 
-   # - configure-server-node
+    - configure-server-node
     - configure-prometheus-node-exporter

@@ -242,8 +242,7 @@ jobs:
             cd  .circleci/ansible/
             cat inventory.txt  
             export ANSIBLE_HOST_KEY_CHECKING=false
-
-          # ansible-playbook -vvv configure-server.yml -i inventory.txt
+            ansible-playbook -vvv configure-server.yml -i inventory.txt
             
 
 
@@ -357,9 +356,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             export ANSIBLE_HOST_KEY_CHECKING=False
-
-
-          # ansible-playbook -vvv -i inventory.txt deploy-backend.yml
+            ansible-playbook -vvv -i inventory.txt deploy-backend.yml
 
       # - destroy-environment
       # - revert-migrations
