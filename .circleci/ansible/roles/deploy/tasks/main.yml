@@ -24,14 +24,21 @@
     global: true
     state: latest
     production: true
+
+- name: Create directory for artifact 
+  file:
+    path: /app
+    state: directory
+
 - name: extract artifact
   become: true
   unarchive:
     src: files/artifact.tar.gz
-    dest: .
+    dest: /app
 
 - name: start app
   become: true
   shell: |
+    cd /app
     pm2 delete all
     pm2 start npm -- start
