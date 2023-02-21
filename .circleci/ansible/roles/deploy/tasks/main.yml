@@ -25,16 +25,23 @@
     state: latest
     production: true
 
-- name: Create directory for artifact 
-  file:
-    path: /app
-    state: directory
+# - name: Create directory for artifact 
+#   file:
+#     path: /home/ubuntu
+#     state: directory
 
 - name: extract artifact
   become: true
   unarchive:
     src: files/artifact.tar.gz
-    dest: /app
+    dest: .
+
+- name: Change owner of /home/ubuntu
+  file:
+    path: /home/ubuntu
+    owner: ubuntu
+    group: ubuntu
+    recurse: true
 
 - name: start app
   become: true
