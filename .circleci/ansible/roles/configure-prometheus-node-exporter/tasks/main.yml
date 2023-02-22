@@ -43,7 +43,7 @@
       After: multi-user.target
 
       service:
-        ExecStart: "{{node_exporter_dir }}/node_exporter"
+        ExecStart: "/tmp/node_exporter-1.5.0/node_exporter"
         Restart: always
 
 
