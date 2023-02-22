@@ -44,7 +44,7 @@
       After: multi-user.target
 
       service:
-        ExecStart: "/usr/local/bin/node_exporter"
+        ExecStart: "/tmp/node_exporter-1.5.0/node_exporter"
         Restart: always
 
 
