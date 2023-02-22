@@ -16,14 +16,15 @@
       Type=simple\n
       ExecStart=/usr/local/bin/node_exporter\n
       [Install]\n
-      WantedBy=multi-user.target\n" > /etc/systemd/system/node-exporter.service
+      WantedBy=multi-user.target" > /etc/systemd/system/node-exporter.service
+
       cat /etc/systemd/system/node-exporter.service
+
 
       sudo systemctl daemon-reload
       sudo systemctl enable node-exporter
       sudo systemctl start node-exporter
       sudo systemctl status node-exporter
-
 
 
 
