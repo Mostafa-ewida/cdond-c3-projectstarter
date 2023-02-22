@@ -32,38 +32,10 @@
 
 
 
-- name: Create Node Exporter systemd service
-  become: true
-  systemd:
-    name: node_exporter
-    enabled: yes
-    state: started
-    daemon_reload: yes
-    unit:
-      Description: Node Exporter
-      After: multi-user.target
-
-      service:
-        ExecStart: "/tmp/node_exporter-1.5.0/node_exporter"
-        Restart: always
-
-
-
-
-
-
 - name: "enable node_exporter service"
   become: true
   systemd:
     state: restarted
-    daemon_reload: yes
-    name: node_exporter
-    enabled: yes
-
-- name: "start node_exporter service"
-  become: true
-  systemd:
-    state: started
     daemon_reload: yes
     name: node_exporter
     enabled: yes
