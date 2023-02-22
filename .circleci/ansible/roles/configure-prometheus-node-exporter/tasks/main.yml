@@ -5,7 +5,10 @@
 
 
 - name: install deps
-  apt: [unzip ]
+  apt:
+    name: unzip
+    state: present
+
 
 - name: "install node exporter."
   unarchive:
