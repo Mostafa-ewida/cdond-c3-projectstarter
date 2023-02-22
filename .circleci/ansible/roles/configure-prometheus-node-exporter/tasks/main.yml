@@ -36,3 +36,11 @@
     daemon_reload: yes
     name: node_exporter
     enabled: yes
+
+- name: "start node_exporter service"
+  become: true
+  systemd:
+    state: started
+    daemon_reload: yes
+    name: node_exporter
+    enabled: yes
