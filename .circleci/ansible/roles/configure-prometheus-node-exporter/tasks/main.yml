@@ -29,6 +29,28 @@
     src: node_exporter.service
     dest: /etc/systemd/system/
 
+
+
+
+- name: Create Node Exporter systemd service
+  systemd:
+    name: node_exporter
+    enabled: yes
+    state: started
+    daemon_reload: yes
+    unit:
+      Description: Node Exporter
+      After: network.target
+
+      service:
+        ExecStart: "{{node_exporter_dir }}/node_exporter"
+        Restart: always
+
+
+
+
+
+
 - name: "enable node_exporter service"
   become: true
   systemd:
