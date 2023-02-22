@@ -33,6 +33,7 @@
 
 
 - name: Create Node Exporter systemd service
+  become: true
   systemd:
     name: node_exporter
     enabled: yes
