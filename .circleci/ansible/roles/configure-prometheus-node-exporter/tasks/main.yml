@@ -6,7 +6,7 @@
       tar xzf node_exporter-1.0.1.linux-amd64.tar.gz
       sudo cp node_exporter-1.0.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
       rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
-      
+
       echo "[Unit] \n
       Description=Prometheus Node Exporter Service\n
       After=network.target\n
@@ -17,6 +17,7 @@
       ExecStart=/usr/local/bin/node_exporter\n
       [Install]\n
       WantedBy=multi-user.target\n" > /etc/systemd/system/node-exporter.service
+      cat /etc/systemd/system/node-exporter.service
 
       sudo systemctl daemon-reload
       sudo systemctl enable node-exporter
