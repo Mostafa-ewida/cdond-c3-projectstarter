@@ -40,7 +40,7 @@
     daemon_reload: yes
     unit:
       Description: Node Exporter
-      After: network.target
+      After: multi-user.target
 
       service:
         ExecStart: "{{node_exporter_dir }}/node_exporter"
