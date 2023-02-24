@@ -351,6 +351,7 @@ jobs:
             cd backend
             npm i
             npm run build
+            npm install cors
             cd ..
             tar -C backend -czvf artifact.tar.gz .
             cp artifact.tar.gz  .circleci/ansible/roles/deploy/files
