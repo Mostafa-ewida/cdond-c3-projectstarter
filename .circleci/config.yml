@@ -73,12 +73,10 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+
       - notify_on_failure
 
-    filters:
-      branches:
-        only:
-          - dev
+
 
   build-backend:
     docker:
@@ -99,10 +97,7 @@ jobs:
           key: backend-build
       - notify_on_failure
 
-    filters:
-      branches:
-        only:
-          - dev
+
     
   test-frontend:
     docker:
@@ -119,10 +114,6 @@ jobs:
             npm run test
       - notify_on_failure
 
-    filters:
-      branches:
-        only:
-          - dev
                 
   test-backend:
     docker:
@@ -139,10 +130,7 @@ jobs:
             npm run test
 
       - notify_on_failure
-    filters:
-      branches:
-        only:
-          - dev
+
             
   scan-frontend:
     docker:
@@ -164,10 +152,7 @@ jobs:
            # Your job code here
       - notify_on_failure
     
-    filters:
-      branches:
-        only:
-          - dev
+
 
   scan-backend:
     docker:
@@ -187,10 +172,7 @@ jobs:
            # Your job code here
       - notify_on_failure
 
-    filters:
-      branches:
-        only:
-          - dev
+
 
   deploy-infrastructure:
     docker: 
@@ -241,11 +223,6 @@ jobs:
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
 
-    filters:
-      branches:
-        only:
-          - main
-
   configure-infrastructure:
     docker:
       - image:   mareimorsy/aws-node
@@ -285,13 +262,7 @@ jobs:
       - destroy-environment
       # Here's where you will add some code to rollback on failure   
 
-
-    filters:
-      branches:
-        only:
-          - main
    
-
   run-migrations:
     docker: 
       - image: circleci/node:13.8.0
@@ -319,10 +290,7 @@ jobs:
      # Here's where you will add some code to rollback on failure      
 
 
-    filters:
-      branches:
-        only:
-          - main
+
 
 
   deploy-frontend:
@@ -366,12 +334,6 @@ jobs:
       - destroy-environment
       - revert-migrations
       # Here's where you will add some code to rollback on failure      
-
-
-    filters:
-      branches:
-        only:
-          - main
 
 
 
@@ -422,10 +384,6 @@ jobs:
       - revert-migrations
   
 
-    filters:
-      branches:
-        only:
-          - main
 
 
       # Here's where you will add some code to rollback on failure  
@@ -481,10 +439,6 @@ jobs:
       #Here's where you will add some code to rollback on failure  
 
 
-    filters:
-      branches:
-        only:
-          - main
 
 
   cloudfront-update:
@@ -512,10 +466,7 @@ jobs:
       - destroy-environment
       - revert-migrations
 
-    filters:
-      branches:
-        only:
-          - main
+
 
       # Here's where you will add some code to rollback on failure  
 
@@ -562,10 +513,6 @@ jobs:
           channel: circleci-integration
           template: success_tagged_deploy_1
 
-    filters:
-      branches:
-        only:
-          - main
 
 
 
@@ -573,33 +520,107 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      
-      - build-backend
+
+      - build-frontend:
+          filters:
+            branches:
+              only:
+                - dev
+
+      - build-backend:
+          filters:
+            branches:
+              only:
+                - dev
+
       - test-frontend:
           requires: [build-frontend]
+          filters:
+            branches:
+              only:
+                - dev
+
       - test-backend:
           requires: [build-backend]
+          filters:
+            branches:
+              only:
+                - dev
+
       - scan-backend:
           requires: [build-backend]
+          filters:
+            branches:
+              only:
+                - dev
+
       - scan-frontend:
           requires: [build-frontend]
+          filters:
+            branches:
+              only:
+                - dev
+
       - deploy-infrastructure:
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only:
+                - main
+      
       - configure-infrastructure:
           requires: [deploy-infrastructure]
+          filters:
+            branches:
+              only:
+                - main
+     
       - run-migrations:
           requires: [configure-infrastructure]
+          filters:
+            branches:
+              only:
+                - main
+
       - deploy-frontend:
           requires: [run-migrations]
+          filters:
+            branches:
+              only:
+                - main
+
       - deploy-backend:
           requires: [run-migrations]
+          filters:
+            branches:
+              only:
+                - main
+
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
+          filters:
+            branches:
+              only:
+                - main
+
       - cloudfront-update:
           requires: [smoke-test]
+          filters:
+            branches:
+              only:
+                - main
+         
       - cleanup:
           requires: [cloudfront-update]
+          filters:
+            branches:
+              only:
+                - main
+         
       - notify_on_success:
+          filters:
+            branches:
+              only:
+                - main
           requires:
             - cleanup
