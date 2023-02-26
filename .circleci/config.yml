@@ -517,110 +517,146 @@ jobs:
 
 
 
+# workflows:
+#   default:
+#     jobs:
+
+#       - build-frontend:
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - build-backend:
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - test-frontend:
+#           requires: [build-frontend]
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - test-backend:
+#           requires: [build-backend]
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - scan-backend:
+#           requires: [build-backend]
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - scan-frontend:
+#           requires: [build-frontend]
+#           filters:
+#             branches:
+#               only:
+#                 - dev
+
+#       - deploy-infrastructure:
+#           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+      
+#       - configure-infrastructure:
+#           requires: [deploy-infrastructure]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+     
+#       - run-migrations:
+#           requires: [configure-infrastructure]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+
+#       - deploy-frontend:
+#           requires: [run-migrations]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+
+#       - deploy-backend:
+#           requires: [run-migrations]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+
+#       - smoke-test:
+#           requires: [deploy-backend, deploy-frontend]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+
+#       - cloudfront-update:
+#           requires: [smoke-test]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+         
+#       - cleanup:
+#           requires: [cloudfront-update]
+#           filters:
+#             branches:
+#               only:
+#                 - main
+         
+#       - notify_on_success:
+#           filters:
+#             branches:
+#               only:
+#                 - main
+#           requires:
+#             - cleanup
+
+
+
+
 workflows:
   default:
     jobs:
-
-      - build-frontend:
-          filters:
-            branches:
-              only:
-                - dev
-
-      - build-backend:
-          filters:
-            branches:
-              only:
-                - dev
-
-      - test-frontend:
-          requires: [build-frontend]
-          filters:
-            branches:
-              only:
-                - dev
-
-      - test-backend:
-          requires: [build-backend]
-          filters:
-            branches:
-              only:
-                - dev
-
-      - scan-backend:
-          requires: [build-backend]
-          filters:
-            branches:
-              only:
-                - dev
-
-      - scan-frontend:
-          requires: [build-frontend]
-          filters:
-            branches:
-              only:
-                - dev
-
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
       - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters:
+          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters: 
             branches:
-              only:
-                - main
-      
+              only: [main] 
       - configure-infrastructure:
           requires: [deploy-infrastructure]
-          filters:
-            branches:
-              only:
-                - main
-     
       - run-migrations:
           requires: [configure-infrastructure]
-          filters:
-            branches:
-              only:
-                - main
-
       - deploy-frontend:
           requires: [run-migrations]
-          filters:
-            branches:
-              only:
-                - main
-
       - deploy-backend:
           requires: [run-migrations]
-          filters:
-            branches:
-              only:
-                - main
-
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
-          filters:
-            branches:
-              only:
-                - main
-
       - cloudfront-update:
           requires: [smoke-test]
-          filters:
-            branches:
-              only:
-                - main
-         
       - cleanup:
           requires: [cloudfront-update]
-          filters:
-            branches:
-              only:
-                - main
-         
-      - notify_on_success:
-          filters:
-            branches:
-              only:
-                - main
-          requires:
-            - cleanup
