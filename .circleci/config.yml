@@ -22,12 +22,11 @@ commands:
       - run:
           name: Destroy environments
           when: on_fail
-          command: echo "hello"
-          # command: |
-          #   aws cloudformation delete-stack \
-          #   --stack-name udapeople-backend-<<parameters.Workflow_ID>>
-          #   aws s3 rm s3://udapeople-meewida1234 --recursive
-          #   aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
+          command: |
+            aws cloudformation delete-stack \
+            --stack-name udapeople-backend-<<parameters.Workflow_ID>>
+            aws s3 rm s3://udapeople-meewida1234 --recursive
+            aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
 
       - notify_on_failure
 
@@ -39,21 +38,20 @@ commands:
       - run:
           name: Revert migrations
           when: on_fail
-          command: echo "hello"
           # Add when this will run
-          # command: |
-          #   # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-          #   SUCCESS=$(curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 )
-          #   if(( $SUCCESS==9 )); 
-          #   then
-          #     cd ~/project/backend
-          #     npm install
-          #     npm audit fix
-          #     npm run migrations:revert 
-          #       #Add revert code here. You can find this in the Getting Started section.
-          #     curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS=$(curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 )
+            if(( $SUCCESS==9 )); 
+            then
+              cd ~/project/backend
+              npm install
+              npm audit fix
+              npm run migrations:revert 
+                #Add revert code here. You can find this in the Getting Started section.
+              curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
               
-          #   fi
+            fi
 
 
 jobs:
