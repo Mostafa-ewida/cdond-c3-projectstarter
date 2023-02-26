@@ -49,7 +49,7 @@ commands:
               npm audit fix
               npm run migrations:revert 
                 #Add revert code here. You can find this in the Getting Started section.
-              curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
+              curl --insecure https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
               
             fi
 
