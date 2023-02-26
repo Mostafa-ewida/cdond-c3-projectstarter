@@ -16,17 +16,15 @@ commands:
     parameters:
       Workflow_ID:
         type: string
-        default: ${CIRCLE_WORKFLOW_ID:0:7}
     #   # Add parameter here   
     steps:
       - run:
           name: Destroy environments
           when: on_fail
           command: |
-            aws cloudformation delete-stack \
-            --stack-name udapeople-backend-<<parameters.Workflow_ID>>
-            aws s3 rb s3://udapeople-<<parameters.Workflow_ID>> --recursive
-            aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
+            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
+              aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
+              aws s3 rb s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --force
 
       - notify_on_failure
 
@@ -202,11 +200,11 @@ jobs:
       - run:
           name: Ensure front-end infrastructure exist
           command: |
-            aws cloudformation deploy \
-                --template-file .circleci/files/frontend.yml \
-                --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
-                --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
-                --tags project=udapeople
+           aws cloudformation deploy \
+              --template-file .circleci/files/frontend.yml \
+              --tags project=udapeople \
+              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
               exit_code=$?
               if [[ $exit_code == 0  ||  $exit_code == 255 ]]; 
                 then
@@ -214,6 +212,7 @@ jobs:
                 else
                     exit 1
                 fi
+                
       - persist_to_workspace:
           root: ~/
           paths:
