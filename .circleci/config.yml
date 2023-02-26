@@ -22,11 +22,12 @@ commands:
       - run:
           name: Destroy environments
           when: on_fail
-          command: |
-            aws cloudformation delete-stack \
-            --stack-name udapeople-backend-<<parameters.Workflow_ID>>
-            aws s3 rm s3://udapeople-meewida1234 --recursive
-            aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
+          command: echo "hello"
+          # command: |
+          #   aws cloudformation delete-stack \
+          #   --stack-name udapeople-backend-<<parameters.Workflow_ID>>
+          #   aws s3 rm s3://udapeople-meewida1234 --recursive
+          #   aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.Workflow_ID>>
 
       - notify_on_failure
 
@@ -38,20 +39,21 @@ commands:
       - run:
           name: Revert migrations
           when: on_fail
+          command: echo "hello"
           # Add when this will run
-          command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 )
-            if(( $SUCCESS==9 )); 
-            then
-              cd ~/project/backend
-              npm install
-              npm audit fix
-              npm run migrations:revert 
-                #Add revert code here. You can find this in the Getting Started section.
-              curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
+          # command: |
+          #   # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+          #   SUCCESS=$(curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 )
+          #   if(( $SUCCESS==9 )); 
+          #   then
+          #     cd ~/project/backend
+          #     npm install
+          #     npm audit fix
+          #     npm run migrations:revert 
+          #       #Add revert code here. You can find this in the Getting Started section.
+          #     curl https://kvdb.io/ARXC4LcAsHmsktYYRSAbSE/migration_meewida1234 -d 1
               
-            fi
+          #   fi
 
 
 jobs:
@@ -394,11 +396,24 @@ jobs:
               else
                   return 1
               fi
+                - run:
 
+      - run: 
+          name: Frontend smoke test.
+          command: |
+                URL="http://udapeople-meewida1234.s3-website-us-east-1.amazonaws.com/#/employees"            
+                echo ${URL} 
+                if curl -s ${URL} | grep "Welcome"
+                then
+                    # Change this to 0 after the job fails
+                  return 1
+                else
+                  return 1
+                fi
         
 
-      # - destroy-environment
-      # - revert-migrations
+      - destroy-environment
+      - revert-migrations
       #Here's where you will add some code to rollback on failure  
 
   cloudfront-update:
@@ -468,30 +483,30 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]
-      - deploy-frontend:
-          requires: [run-migrations]
-      - deploy-backend:
-          requires: [run-migrations]
-      - smoke-test:
-          requires: [deploy-backend, deploy-frontend]
-      - cloudfront-update:
-          requires: [smoke-test]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
+      # - deploy-infrastructure:
+      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+      # - configure-infrastructure:
+      #     requires: [deploy-infrastructure]
+      # - run-migrations:
+      #     requires: [configure-infrastructure]
+      # - deploy-frontend:
+      #     requires: [run-migrations]
+      # - deploy-backend:
+      #     requires: [run-migrations]
+      - smoke-test
+          # requires: [deploy-backend, deploy-frontend]
+      # - cloudfront-update:
+      #     requires: [smoke-test]
       # # - cleanup:
       # #     requires: [cloudfront-update]
       # - notify_on_success:
