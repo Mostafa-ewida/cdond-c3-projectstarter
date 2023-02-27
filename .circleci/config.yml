@@ -247,6 +247,11 @@ jobs:
             --query  'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> inventory.txt
 
+             aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+              --output text 
+
       - run:
           name: Configure server
           command: |
@@ -361,6 +366,12 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
               --output text  >> inventory.txt
+
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7} \
+              --output text 
+
 
       - run:
           name: Deploy Ansible backend
