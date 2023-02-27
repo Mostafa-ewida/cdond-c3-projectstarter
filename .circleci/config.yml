@@ -246,13 +246,14 @@ jobs:
             --filters Name=tag:Name,Values="backend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --query  'Reservations[*].Instances[*].PublicIpAddress' \
             --output text >> inventory.txt
-
+            sleep 60
             cat inventory.txt
 
       - run:
           name: Configure server
           command: |
             cd  .circleci/ansible/
+
             cat inventory.txt  
             export ANSIBLE_HOST_KEY_CHECKING=false
             ansible-playbook -vvv configure-server.yml -i inventory.txt
